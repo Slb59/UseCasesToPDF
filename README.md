@@ -1,6 +1,6 @@
 # Oc-P3 : Générer des fichiers pdf à partir de python
 ---
-![assets/img](logo_dev4u.png) | ![assets/img](logo_learnhome.png)
+![assets](img/logo_dev4u.png) | ![assets/img](img/logo_learnhome.png)
 
 ## Objectif
 Ce programme est un utilitaire pour générer les fichiers pdf demandés dans le cadre de la formation 
