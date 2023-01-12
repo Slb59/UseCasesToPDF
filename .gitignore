@@ -1,3 +1,7 @@
 # no environnement, ide files
 __pycache__
 env
+
+# no outout file
+output
+*.pdf
