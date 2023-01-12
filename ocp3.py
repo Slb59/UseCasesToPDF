@@ -9,8 +9,10 @@ def main():
     pdf.add_font('Raleway-Light', '', file, uni=True)
     pdf.set_font('Raleway-Light', '', 10)
     pdf.set_text_color(255, 255, 255)
-    pdf.image('assets/img/logo_dev4u.png', x=0, y=0, w=210, h=297)
-    pdf.output('output/test1.pdf')
+    file = os.path.join(cwd, "assets", "img", "logo_dev4u.png")
+    pdf.image(file, x=0, y=0, w=50, h=25)
+    file = os.path.join(cwd, "output", "test1.pdf")
+    pdf.output(file)
 
 if __name__ == '__main__':
     main()
