@@ -14,18 +14,19 @@ class OCP3:
         self.img_directory = parameters.img_directory
         self.check_directories()
 
-
         LOGGER.debug('Initialisation de OCP3')
 
         self.uml_file = PDFUml('uml.pdf', parameters)
         self.wireframes_m = PDFWireframeM('wireframes(M).pdf', parameters)
-        self.wireframes_d = PDFWireframeM('wireframes(D).pdf', parameters)
-
+        self.wireframes_d = PDFWireframeD('wireframes(D).pdf', parameters)
 
     def generate_files(self):
+        print("Generation du fichier uml")
         self.uml_file.generate()
+        print("generation des wireframes mobiles")
         self.wireframes_m.generate()
-        self.wireframes_dgenerate()
+        print("generation des wireframes desktop")
+        self.wireframes_d.generate()
 
     def check_directories(self):
         """ check the directories exists """
