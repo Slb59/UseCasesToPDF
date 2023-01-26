@@ -6,3 +6,6 @@ env
 output
 *.pdf
 
+# no img file
+*.png
+*.jpg

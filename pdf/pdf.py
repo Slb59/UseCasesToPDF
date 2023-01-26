@@ -46,8 +46,8 @@ class PDF:
         self.pdf.text(x=270, y=205, txt=a_text)
 
 
-class PDFWireframeM(PDF):
-    """ generate pdf for wireframes mobiles """
+class PDFWireframe(PDF):
+    """ generate pdf for wireframes """
     def __init__(self, name, parameters):
         super().__init__(name, parameters)
 
@@ -83,8 +83,50 @@ class PDFWireframeM(PDF):
                 a_text += '_'
             self.pdf.text(x=50, y=80+i*10, txt=a_text)
 
+
+class PDFWireframeD(PDFWireframe):
+    """ generate pdf for wireframes for desktop """
+    def __init__(self, name, parameters):
+        super().__init__(name, parameters)
+
     def generate_p1(self):
         self.pdf.add_page()
+        self.current_page += 1
+        self.total_pages += 1
+        a_text = "La page de connexion"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        file = os.path.join(self.img_directory, "page_de_connexion (M) - NB.png")
+        self.pdf.image(file, x=10, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page_de_creation_de_compte tuteur (M) - NB.png")
+        self.pdf.image(file, x=80, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page_de_creation_de_compte eleve(M) - NB.png")
+        self.pdf.image(file, x=150, y=20, w=67, h=117)
+
+    def generate_p2(self):
+        self.pdf.add_page()
+        self.current_page += 1
+        self.total_pages += 1
+        a_text = "La page interface de chat"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        file = os.path.join(self.img_directory, "page_interface_chat_tuteur (M) - NB.png")
+        self.pdf.image(file, x=10, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page_interface_chat_eleve (M) - NB.png")
+        self.pdf.image(file, x=80, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page contact tuteur (M) - NB.png")
+        self.pdf.image(file, x=150, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page contact eleve (M) - NB.png")
+        self.pdf.image(file, x=220, y=20, w=67, h=117)
+
+    def generate_p3(self):
+        self.pdf.add_page()
+        self.current_page += 1
+        self.total_pages += 1
+        a_text = "La page calendrier"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        file = os.path.join(self.img_directory, "page calendrier tuteur (M) - NB.png")
+        self.pdf.image(file, x=10, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page calendrier elève (M) - NB.png")
+        self.pdf.image(file, x=80, y=20, w=67, h=117)
 
     def generate(self):
         self.generate_header()
@@ -95,6 +137,72 @@ class PDFWireframeM(PDF):
         self.generate_p1()
         self.generate_footer()
 
+        self.generate_p2()
+        self.generate_footer()
+
+        self.generate_p3()
+        self.generate_footer()
+
+        self.generate_file()
+
+class PDFWireframeM(PDFWireframe):
+    """ generate pdf for wireframes mobiles """
+    def __init__(self, name, parameters):
+        super().__init__(name, parameters)
+
+    def generate_p1(self):
+        self.pdf.add_page()
+        self.current_page += 1
+        self.total_pages += 1
+        a_text = "La page de connexion"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        file = os.path.join(self.img_directory, "page_de_connexion (M) - NB.png")
+        self.pdf.image(file, x=10, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page_de_creation_de_compte tuteur (M) - NB.png")
+        self.pdf.image(file, x=80, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page_de_creation_de_compte eleve(M) - NB.png")
+        self.pdf.image(file, x=150, y=20, w=67, h=117)
+
+    def generate_p2(self):
+        self.pdf.add_page()
+        self.current_page += 1
+        self.total_pages += 1
+        a_text = "La page interface de chat"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        file = os.path.join(self.img_directory, "page_interface_chat_tuteur (M) - NB.png")
+        self.pdf.image(file, x=10, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page_interface_chat_eleve (M) - NB.png")
+        self.pdf.image(file, x=80, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page contact tuteur (M) - NB.png")
+        self.pdf.image(file, x=150, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page contact eleve (M) - NB.png")
+        self.pdf.image(file, x=220, y=20, w=67, h=117)
+
+    def generate_p3(self):
+        self.pdf.add_page()
+        self.current_page += 1
+        self.total_pages += 1
+        a_text = "La page calendrier"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        file = os.path.join(self.img_directory, "page calendrier tuteur (M) - NB.png")
+        self.pdf.image(file, x=10, y=20, w=67, h=117)
+        file = os.path.join(self.img_directory, "page calendrier elève (M) - NB.png")
+        self.pdf.image(file, x=80, y=20, w=67, h=117)
+
+    def generate(self):
+        self.generate_header()
+
+        self.generate_menu()
+        self.generate_footer()
+
+        self.generate_p1()
+        self.generate_footer()
+
+        self.generate_p2()
+        self.generate_footer()
+
+        self.generate_p3()
+        self.generate_footer()
 
         self.generate_file()
 
