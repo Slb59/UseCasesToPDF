@@ -7,7 +7,7 @@ class Logger:
     """ Manage the logs of the project """
     def __init__(self):
 
-        self.logger = logging.getLogger('ocp3')
+        self.logger = logging.getLogger('ocp3-pdf')
 
         # define a Handler which writes INFO messages or higher to the sys.stderr
         console = logging.StreamHandler(sys.stdout)

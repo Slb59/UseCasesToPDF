@@ -1,4 +1,4 @@
 __version__ = "0.1"
 __author__ = "Sylvie Bricout"
-from .logger import *
+from .logger import Logger
 LOGGER = Logger()
