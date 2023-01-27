@@ -1,10 +1,12 @@
 import csv
 import os
+import textwrap
 
 from pdf import PDF
 from logs import LOGGER
 from fpdf import FPDF
 from .story import Story
+
 
 
 class PDFUserStory(PDF):
@@ -29,7 +31,6 @@ class PDFUserStory(PDF):
             for line in reader:
                 story = Story(line['Page'], line['Story'], line['Scenario'], line['Description'])
                 self.stories.append(story)
-                print(story)
 
     def generate_menu(self):
 
@@ -83,18 +84,31 @@ class PDFUserStory(PDF):
 
         posy = 30
         self.pdf.set_text_color(0, 0, 0)
+        save_story = ''
+
         for elem in self.stories:
             if elem.page == "La page de connexion":
-                self.pdf.image(fleche, x=20, y=posy - 5, w=10, h=5)
-                self.pdf.set_font(self.font, '', 12)
-                self.pdf.text(x=30, y=posy, txt=elem.story)
-                posy += 15
+                # draw the story
+                if elem.story != save_story:
+                    self.pdf.image(fleche, x=20, y=posy - 5, w=10, h=5)
+                    self.pdf.set_font(self.font, '', 12)
+                    self.pdf.text(x=30, y=posy, txt=elem.story)
+                    posy += 13
+                save_story = elem.story
                 self.pdf.text(x=10, y=posy, txt=elem.scenario)
                 self.pdf.text(x=10, y=posy, txt=elem.scenario)
                 self.pdf.line(10, posy + 2, 10 + 200, posy + 2)
                 posy += 10
-                self.pdf.text(x=10, y=posy, txt=elem.description)
-                posy += 20
+                wrapper = textwrap.TextWrapper(width=140)
+                word_list = wrapper.wrap(elem.description)
+                for elem in word_list:
+                    self.pdf.text(x=10, y=posy, txt=elem)
+                    posy += 10
+                posy += 15
+                if posy >= 150:
+                    self.generate_footer()
+                    self.pdf.add_page()
+                    posy = 30
 
     def generate(self):
         self.generate_header()
