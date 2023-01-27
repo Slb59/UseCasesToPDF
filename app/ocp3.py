@@ -23,13 +23,14 @@ class OCP3:
 
     def generate_files(self):
         print("Generation du fichier uml")
-        self.uml_file.generate()
+        # self.uml_file.generate()
         print("generation des wireframes mobiles")
-        self.wireframes_m.generate()
+        # self.wireframes_m.generate()
         print("generation des wireframes desktop")
-        self.wireframes_d.generate()
+        # self.wireframes_d.generate()
         print("generate user stories")
-        self.user_stories.load_odt()
+        self.user_stories.load_csv()
+        self.user_stories.generate()
 
     def check_directories(self):
         """ check the directories exists """

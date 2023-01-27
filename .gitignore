@@ -9,3 +9,7 @@ output
 # no img file
 *.png
 *.jpg
+
+# no csv file
+*.csv
+*.ods

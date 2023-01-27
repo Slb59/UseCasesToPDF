@@ -60,8 +60,6 @@ class PDFWireframeD(PDFWireframe):
     def generate_p1(self):
         self.pdf.add_page()
         a_text = "La page de connexion"
-        self.link_p1 = self.pdf.add_link()
-
         self.pdf.text(x=10, y=10, txt=a_text)
 
         images_w = 95
