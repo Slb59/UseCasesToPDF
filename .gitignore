@@ -5,3 +5,7 @@ env
 # no outout file
 output
 *.pdf
+
+# no img file
+*.png
+*.jpg
