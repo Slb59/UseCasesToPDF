@@ -3,7 +3,7 @@ import app
 
 
 from logs import LOGGER
-from pdf import PDFUml, PDFWireframeM, PDFWireframeD
+from pdf import PDFUml, PDFWireframeM, PDFWireframeD, PDFUserStory
 
 
 class OCP3:
@@ -19,6 +19,7 @@ class OCP3:
         self.uml_file = PDFUml('uml.pdf', parameters)
         self.wireframes_m = PDFWireframeM('wireframes(M).pdf', parameters)
         self.wireframes_d = PDFWireframeD('wireframes(D).pdf', parameters)
+        self.user_stories = PDFUserStory('user_stories.pdf', parameters)
 
     def generate_files(self):
         print("Generation du fichier uml")
@@ -27,6 +28,8 @@ class OCP3:
         self.wireframes_m.generate()
         print("generation des wireframes desktop")
         self.wireframes_d.generate()
+        print("generate user stories")
+        self.user_stories.load_odt()
 
     def check_directories(self):
         """ check the directories exists """
