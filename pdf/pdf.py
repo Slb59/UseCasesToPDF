@@ -11,9 +11,6 @@ class PDF:
         self.img_directory = parameters.img_directory
         self.font = 'Raleway-Light.ttf'
         self.name = name
-        self.total_pages = 1
-        self.current_page = 1
-        self.pdf = ''
 
     def generate_header(self):
         self.pdf = FPDF(orientation='L', unit='mm', format='A4')
@@ -42,7 +39,7 @@ class PDF:
         a_text += f"{now.day}/{now.month}/{now.year}"
         self.pdf.set_font(self.font, '', 12)
         self.pdf.text(x=70, y=205, txt=a_text)
-        a_text = f"{self.current_page}/{self.total_pages}"
+        a_text = f"{self.pdf.page_no()}/{self.pdf.alias_nb_pages()}"
         self.pdf.text(x=270, y=205, txt=a_text)
 
 
