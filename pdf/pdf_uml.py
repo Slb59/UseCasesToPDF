@@ -13,8 +13,8 @@ class PDFUml(PDF):
         self.generate_header()
 
         # add uml diagram
-        file = os.path.join(self.img_directory, "uml.png")
-        self.pdf.image(file, x=5, y=30, w=290, h=180)
+        file = os.path.join(self.img_directory, "uml2.png")
+        self.pdf.image(file, x=5, y=30, w=290, h=160)
 
         self.generate_footer()
         self.generate_file()

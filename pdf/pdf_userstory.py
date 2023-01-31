@@ -16,6 +16,12 @@ class PDFUserStory(PDF):
         super().__init__(name, parameters)
         self.stories = []
 
+        self.table_of_content = [[2, 'page 2', "La page de connexion"],
+                            [5, 'page 5', "La page interface de chat"],
+                            [9, 'page 9', "La page calendrier"],
+                            [12, 'page 12', "La page gestion des tâches"],
+                            [15, 'page 15', "Le tableau de bord"]]
+
     def load_odt(self):
         pass
         # file = os.path.join(self.img_directory, "user_stories.odt")
@@ -43,15 +49,9 @@ class PDFUserStory(PDF):
 
         fleche = os.path.join(self.img_directory, "fleche.jpg")
 
-        table_of_content = [[2, 'page 2', "La page de connexion"],
-                            [3, 'page 3', "La page interface de chat"],
-                            [4, 'page 4', "La page du calendrier"],
-                            [5, 'page 4', "La page de gestion des tâches"],
-                            [6, 'page 4', "La page tableau de bord"]]
-
         posx = 35
         posy = 80
-        for elem in table_of_content:
+        for elem in self.table_of_content:
             self.pdf.image(fleche, x=20, y=posy - 5, w=10, h=5)
             self.pdf.text(x=posx, y=posy, txt=elem[2])
             posy += 10
@@ -64,7 +64,7 @@ class PDFUserStory(PDF):
 
         posy = 55
         self.pdf.set_text_color(218, 33, 33)
-        for elem in table_of_content:
+        for elem in self.table_of_content:
             page_pos_x = 230
             new_link = self.pdf.add_link()
             self.pdf.set_link(new_link, y=0.0, page=elem[0])
@@ -73,9 +73,9 @@ class PDFUserStory(PDF):
             posy += 10
         self.pdf.set_text_color(0, 0, 0)
 
-    def generate_p1(self):
+    def generate_p(self, name):
         self.pdf.add_page()
-        a_text = "La page de connexion"
+        a_text = name
         self.pdf.set_font(self.font, '', 14)
         self.pdf.set_text_color(218, 33, 33)
         self.pdf.text(x=10, y=10, txt=a_text)
@@ -87,22 +87,26 @@ class PDFUserStory(PDF):
         save_story = ''
 
         for elem in self.stories:
-            if elem.page == "La page de connexion":
+            if elem.page == name:
                 # draw the story
+                wrapper = textwrap.TextWrapper(width=135)
                 if elem.story != save_story:
                     self.pdf.image(fleche, x=20, y=posy - 5, w=10, h=5)
                     self.pdf.set_font(self.font, '', 12)
-                    self.pdf.text(x=30, y=posy, txt=elem.story)
+                    word_list = wrapper.wrap(elem.story)
+                    for elem2 in word_list:
+                        self.pdf.text(x=33, y=posy, txt=elem2)
+                        posy += 10
                     posy += 13
                 save_story = elem.story
                 self.pdf.text(x=10, y=posy, txt=elem.scenario)
                 self.pdf.text(x=10, y=posy, txt=elem.scenario)
                 self.pdf.line(10, posy + 2, 10 + 200, posy + 2)
                 posy += 10
-                wrapper = textwrap.TextWrapper(width=140)
+
                 word_list = wrapper.wrap(elem.description)
-                for elem in word_list:
-                    self.pdf.text(x=10, y=posy, txt=elem)
+                for elem2 in word_list:
+                    self.pdf.text(x=10, y=posy, txt=elem2)
                     posy += 10
                 posy += 15
                 if posy >= 150:
@@ -116,7 +120,8 @@ class PDFUserStory(PDF):
         self.generate_menu()
         self.generate_footer()
 
-        self.generate_p1()
-        self.generate_footer()
+        for elem in self.table_of_content:
+            self.generate_p(elem[2])
+            self.generate_footer()
 
         self.generate_file()

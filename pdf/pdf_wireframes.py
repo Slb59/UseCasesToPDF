@@ -24,8 +24,8 @@ class PDFWireframe(PDF):
         table_of_content = [[2, 'page 2', "La page de connexion"],
                             [3, 'page 3', "La page interface de chat"],
                             [4, 'page 4', "La page du calendrier"],
-                            [5, 'page 4', "La page de gestion des tâches"],
-                            [6, 'page 4', "La page tableau de bord"]]
+                            [5, 'page 5', "La page de gestion des tâches"],
+                            [6, 'page 6', "La page tableau de bord"]]
 
         posx = 35
         posy = 80
@@ -99,6 +99,27 @@ class PDFWireframeD(PDFWireframe):
         file = os.path.join(self.img_directory, "page calendrier eleve (D) - NB.png")
         self.pdf.image(file, x=10, y=20 + image_h + 5, w=images_w, h=image_h)
 
+    def generate_p4(self):
+        self.pdf.add_page()
+        a_text = "La page gestion des tâches"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        images_w = 95
+        image_h = 75
+        file = os.path.join(self.img_directory, "page gestion taches tuteur (D).png")
+        self.pdf.image(file, x=10, y=20, w=images_w, h=image_h)
+        file = os.path.join(self.img_directory, "page gestion taches eleve (D).png")
+        self.pdf.image(file, x=10 + images_w + 5, y=20, w=images_w, h=image_h)
+
+    def generate_p5(self):
+        self.pdf.add_page()
+        a_text = "La page tableau de bord"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        images_w = 95
+        image_h = 75
+        file = os.path.join(self.img_directory, "tableau de bord tuteur (D).png")
+        self.pdf.image(file, x=10, y=20, w=images_w, h=image_h)
+
+
     def generate(self):
         self.generate_header()
 
@@ -112,6 +133,12 @@ class PDFWireframeD(PDFWireframe):
         self.generate_footer()
 
         self.generate_p3()
+        self.generate_footer()
+
+        self.generate_p4()
+        self.generate_footer()
+
+        self.generate_p5()
         self.generate_footer()
 
         self.generate_file()
@@ -159,6 +186,27 @@ class PDFWireframeM(PDFWireframe):
         file = os.path.join(self.img_directory, "page calendrier elève (M) - NB.png")
         self.pdf.image(file, x=10 + 2*images_w + 10, y=20, w=images_w, h=image_h)
 
+    def generate_p4(self):
+        self.pdf.add_page()
+        a_text = "La page gestion des tâches"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        images_w = 67
+        image_h = 117
+        file = os.path.join(self.img_directory, "page gestion taches tuteur (M).png")
+        self.pdf.image(file, x=10, y=20, w=images_w, h=image_h)
+        file = os.path.join(self.img_directory, "page gestion taches eleve (M).png")
+        self.pdf.image(file, x=10 + images_w + 5, y=20, w=images_w, h=image_h)
+
+    def generate_p5(self):
+        self.pdf.add_page()
+        a_text = "La page tableau de bord"
+        self.pdf.text(x=10, y=10, txt=a_text)
+        images_w = 67
+        image_h = 117
+        file = os.path.join(self.img_directory, "tableau de bord tuteur (M).png")
+        self.pdf.image(file, x=10, y=20, w=images_w, h=image_h)
+
+
     def generate(self):
         self.generate_header()
 
@@ -172,6 +220,12 @@ class PDFWireframeM(PDFWireframe):
         self.generate_footer()
 
         self.generate_p3()
+        self.generate_footer()
+
+        self.generate_p4()
+        self.generate_footer()
+
+        self.generate_p5()
         self.generate_footer()
 
         self.generate_file()
