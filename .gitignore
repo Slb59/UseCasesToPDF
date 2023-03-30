@@ -9,3 +9,11 @@ output
 # no img file
 *.png
 *.jpg
+
+# no assets files
+assets
+
+# no tests files
+olds
+tests
+olds_assets
