@@ -19,15 +19,14 @@ class PDF:
         self.center = 149
         self.title = title
 
-    def generate_header(self, logo=True):
+    def generate_header(self, logo=True, logo_file=None):
         """ generate the header for each pages """        
         self.pdf.add_page()
-        if logo:            
-            file = os.path.join(self.assets_folder, "logo-occ.png")
-            self.pdf.image(file, x=5, y=5)        
+        if logo:
+            file = os.path.join(self.assets_folder, logo_file)
+            self.pdf.image(file, x=5, y=5)
         self.pdf.set_font(self.font, '', 14)
-        self.pdf.text(x=90, y=10,txt=self.title)
-
+        self.pdf.text(x=90, y=10, txt=self.title)
 
     def generate_footer(self):
         """ generate the footer of the page """
@@ -58,27 +57,27 @@ class PDF:
     def add_paragraph(self, x, y, text, line_spacing=10) -> int:
         file = os.path.join(self.assets_folder, "fleche.jpg")
         self.pdf.image(file, x=x, y=y, w=20, h=10)
-        y+=5
+        y += 5
         wrapper = textwrap.TextWrapper(width=90)
         text_list = text.split('\n')
         for a_text in text_list:
             word_list = wrapper.wrap(text=a_text)
             for element in word_list:
                 self.pdf.text(x=x+40, y=y, txt=element)
-                y+=line_spacing
+                y += line_spacing
         return y
-    
-    def add_header_footer(self, ma_func, logo=False):    
+
+    def add_header_footer(self, ma_func, logo=False, logo_file=None):    
         @wraps(ma_func)
         def wrapper_function(*args, **kwargs):
-            self.generate_header(logo)
+            self.generate_header(logo, logo_file=logo_file)
             result = ma_func(*args, **kwargs)
             self.generate_footer()
             return result
 
         return wrapper_function
     
-    def display_table(self,x,y,data,col_width=10):
+    def display_table(self, x, y, data, col_width=10):
         
         line_height = self.pdf.font_size * 2
         self.pdf.set_xy(x,y)
