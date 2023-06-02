@@ -24,7 +24,7 @@ class PDF:
         self.pdf.add_page()
         if logo:
             file = os.path.join(self.assets_folder, logo_file)
-            self.pdf.image(file, x=5, y=5)
+            self.pdf.image(file, x=5, y=5, h=20)
         self.pdf.set_font(self.font, '', 14)
         self.pdf.text(x=90, y=10, txt=self.title)
 
@@ -45,7 +45,10 @@ class PDF:
 
     def add_title(self, a_text: str):
         self.pdf.set_font(self.font, '', 24)        
-        self.pdf.text(x=self.center - (self.pdf.get_string_width(a_text)/2), y=30, txt=a_text)
+        self.pdf.text(x=self.center
+                      - (self.pdf.get_string_width(a_text)/2),
+                      y=30,
+                      txt=a_text)
 
     def page_img(self, img_name):
         """ generate a page with a image """
@@ -67,25 +70,56 @@ class PDF:
                 y += line_spacing
         return y
 
-    def add_header_footer(self, ma_func, logo=False, logo_file=None):    
-        @wraps(ma_func)
-        def wrapper_function(*args, **kwargs):
-            self.generate_header(logo, logo_file=logo_file)
-            result = ma_func(*args, **kwargs)
-            self.generate_footer()
-            return result
-
-        return wrapper_function
-    
+    def add_header_footer(self, logo=False, logo_file=None):
+        def decorator(ma_func):
+            def wrapper_function(*args, **kwargs):
+                self.generate_header(logo, logo_file=logo_file)
+                result = ma_func(*args, **kwargs)
+                self.generate_footer()
+                return result
+            return wrapper_function
+        return decorator
+ 
     def display_table(self, x, y, data, col_width=10):
-        
+     
         line_height = self.pdf.font_size * 2
-        self.pdf.set_xy(x,y)
-        posy=y+line_height
+        self.pdf.set_xy(x, y)
+        posy = y+line_height
         for row in data:
             for datum in row:
                 self.pdf.multi_cell(col_width, line_height, datum, border=1, ln=3)
-            self.pdf.set_xy(x,posy)
+            self.pdf.set_xy(x, posy)
             posy += line_height
 
+    def table_of_contents(self, x, y, contents):
+
+        posx = x
+        posy = y
+        fleche = os.path.join(self.assets_folder, "fleche.png")
+
+        for elem in contents:
+            self.pdf.image(fleche, x=posx-15, y=posy - 5, w=10, h=5)
+            self.pdf.text(x=posx, y=posy, txt=elem[2])
+            posy += 10
+
+        posy = 60
+        for i, elem in enumerate(contents):
+            a_text = ''
+            posx = int(45 + self.pdf.get_string_width(elem[2]))
+            posf = 180
+            print(posx)
+            for _ in range(int((posf-posx)/(self.pdf.get_string_width('_')))):
+                a_text += '_'
+            self.pdf.text(x=posx, y=posy+i*10, txt=a_text)
+
+        posy = 60
+        self.pdf.set_text_color(218, 33, 33)
+        for elem in contents:
+            page_pos_x = 180
+            new_link = self.pdf.add_link()
+            # my_pdf.pdf.set_link(new_link, y=0.0, page=elem[0])
+            self.pdf.set_xy(page_pos_x, posy)
+            self.pdf.write(-1, elem[1], link=new_link)
+            posy += 10
+        self.pdf.set_text_color(0, 0, 0)
 
