@@ -1,6 +1,7 @@
 # no environnement, ide files
 __pycache__
-env
+.env
+.venv
 
 # no outout file
 output
@@ -14,4 +15,3 @@ output
 assets
 
 # no tests files
-litreview
