@@ -15,6 +15,7 @@ output
 assets
 
 # no tests files
+utils/files/
 
 # no database
 db.sqlite3
