@@ -8,6 +8,7 @@ fpdf2 = "*"
 django = "*"
 django-environ = "*"
 pypdf = "*"
+pdf2image = "*"
 
 [dev-packages]
 

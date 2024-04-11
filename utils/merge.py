@@ -1,6 +1,11 @@
 from pypdf import PdfMerger
 
-pdfs = ['utils/files/p1-2.pdf', 'utils/files/p3.pdf', 'utils/files/p4.pdf', 'utils/files/p5.pdf']
+pdfs = [
+    'utils/files/p1-2.pdf',
+    'utils/files/p3.pdf',
+    'utils/files/p4.pdf',
+    'utils/files/p5.pdf'
+    ]
 pdfs.append('utils/files/p6-15.pdf')
 pdfs.append('utils/files/p16.pdf')
 pdfs.append('utils/files/p17.pdf')
